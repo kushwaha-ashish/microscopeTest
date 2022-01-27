@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Microscope Test</title>
+</head>
+
+<style>
+	#div1 {
+		margin: -10px;
+		height: 100vh;
+		width: 100vw;
+		font-size: 80px;
+		text-align: center;
+	}
+</style>
+
+<body>
+	<div id="div1">rgb(255, 255, 255)<button type="button" onClick="startAnimation()">START</button></div>
+</body>
+
+<script>
+	var i = 0;
+	var placeHolderArray = ['rgb(255, 0, 0)', 'rgb(0, 255, 0)',
+	'rgb(0, 0, 255)', 'rgb(255, 0, 255)', 'rgb(255, 255, 0)',
+	'rgb(0, 255, 255)', 'rgb(255, 255, 255)'];
+
+	var redColor = 255;
+	var greenColor = 255;
+	var blueColor = 255;
+
+	var div1 = document.getElementById('div1');
+	
+
+	function startAnimation() {
+	div1.style.backgroundColor = 'white';
+	div1.innerHTML = 'rgb(255, 255, 255)';
+	
+	setInterval(colorChange, 1000);
+	};
+
+	function colorChange() {
+		if (i < 7) {
+			div1.innerHTML = placeHolderArray[i];
+			div1.style.backgroundColor = placeHolderArray[i];
+			i++;
+		}
+
+		else {
+			if (redColor <= 0){
+				redColor = 0;
+
+				if (greenColor <= 0) {
+					greenColor = 0;
+					div1.style.color = 'white';
+
+					if (blueColor <= 0) {
+						blueColor = 0;
+						i = 0;
+						div1.style.color = 'black';
+						redColor = 255;
+						greenColor = 255;
+						blueColor = 255;
+					}
+
+					else {
+						blueColor = blueColor - 64;
+					}
+				}
+
+				else {
+					greenColor = greenColor - 64;
+
+				}
+			}
+
+			else {
+				redColor = redColor - 64;
+			}
+
+			colorString = 'rgb(' + Math.max(0, redColor) + ', ' + Math.max(0, greenColor) + ', ' + Math.max(0, blueColor) + ')';
+			div1.innerHTML = colorString;
+			div1.style.backgroundColor = colorString;
+		}
+	};
+</script>
+</html>
